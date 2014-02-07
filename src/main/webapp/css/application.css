@@ -119,6 +119,15 @@ input,textarea {
 	position: static;
 }
 
+/* my-errai-tutorial */
+#root{
+	margin-top: 5em;
+}
+
+.form-control input{
+	height: 1.3em;
+}
+
 #postswrap td button.hover-action{
 	display: none;
 }
@@ -130,6 +139,8 @@ input,textarea {
 #postswrap tr:hover td button.hover-action{
 	display: block;
 }
+
+/* end my-errai-tutorial */
 
 @media (max-width: 767px) {
     html {

@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import org.jboss.errai.demo.client.shared.DeleteEvent;
 import org.jboss.errai.demo.client.shared.Edit;
 import org.jboss.errai.demo.client.shared.New;
+import org.jboss.errai.demo.client.shared.Post;
 import org.jboss.errai.demo.client.shared.RESTService;
 
 @Dependent
@@ -20,7 +21,10 @@ public class BaseEndpoint<M, D extends DeleteEvent> extends CRUD<M> implements R
 	protected Logger log;
 	
 	@Inject @New
-	protected Event<M> entityAdded;
+	protected Event<M> genericEntityAdded;		// fails to get to the client when fired
+	
+	@Inject @New
+	protected Event<Post> entityAdded;			// gets to the client when fired;
 	
 	@Inject @Edit
 	protected Event<M> entityEdited;
@@ -62,7 +66,9 @@ public class BaseEndpoint<M, D extends DeleteEvent> extends CRUD<M> implements R
 	public M add(M entity) {
 		log.severe("lets add " + clzName + " - " + entity);
 		entity = createEntity(entity);
-		entityAdded.fire(entity);
+		entityAdded.fire( (Post) entity); // gets to the client	
+		
+		genericEntityAdded.fire(entity); // fails to get to the client							
 		log.severe("added " + entity + " and fired CDI event, returning call");
 		return entity;
 	}
