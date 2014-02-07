@@ -1,0 +1,57 @@
+<div id="root">
+	<div id="postswrap" class="row">
+		<div class="container">
+			<div class="span7 col-md-7">
+				<table class="table striped table-hover table-condensed">
+					<thead>
+						<tr>
+							<th style="width: 45%">Title</th>
+							<th style="width: 50%">Body</th>
+							<th style="width: 5%"></th>
+						</tr>
+					</thead>
+					<tbody id="posts">
+						<tr id="post" valign="top">
+							<td data-field="posttitle">Title</td>
+							<td data-field="postbody">Body ...</td>
+							<td data-field="postactions"><button type="button"
+									class="btn btn-danger btn-xs hover-action"
+									data-field="deletepost">
+									<i class="fa fa-trash-o"></i>
+								</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="span4 col-md-4">
+				<div class="well">
+					<div class="form-group">
+						<select name="postcategory" data-field="postcategory"
+							class="form-control"></select>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" value=""
+							placeholder="Post Title" data-field="titleentry"> <label
+							class="" for="titleentry"></label>
+					</div>
+					<div class="form-group">
+						<textarea rows="2" cols="5" class="form-control"
+							data-field="bodyentry" placeholder="Details ..."></textarea>
+						<label class="" for="bodyentry"></label>
+					</div>
+					<div class="form-group btns">
+						<button type="button" class="btn btn-large btn-warning pull-right"
+							id="reset">
+							<i class="fa fa-undo pull-left"></i> Cancel
+						</button>
+
+						<button type="button" class="btn btn-large btn-success pull-left"
+							id="submit">
+							<i class="fa fa-save pull-left"></i> Save
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
