@@ -1,5 +1,7 @@
 package org.jboss.errai.demo.client.local;
 
+import java.util.List;
+
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -24,7 +26,6 @@ import com.google.gwt.user.client.ui.HasConstrainedValue;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ValueListBox;
-import com.google.gwt.view.client.ProvidesKey;
 
 @Page(role = DefaultPage.class)
 @Templated("posts.html#root") @Singleton
@@ -98,6 +99,12 @@ public class PostsView extends Composite implements PostsPresenter.PostsDisplay 
 	@Override
 	public HasConstrainedValue<String> category() {
 		return postcategory;
+	}
+	
+	@Override
+	public void setData(List<Post> data) {
+		listWidget().getValue().clear();
+		listWidget().getValue().addAll(data);
 	}
 
 }

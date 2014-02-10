@@ -30,6 +30,7 @@
 
   <iframe src="javascript:''" id="__gwt_historyFrame" style="width: 0; height: 0; border: 0"></iframe>
 
+  <script src="<%=contextPath%>jquery-1.10.2.min.js"></script>
   <script src="<%=contextPath%>/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -9,10 +9,10 @@ import javax.persistence.EntityManager;
 import javax.transaction.UserTransaction;
 
 @Dependent
-public class CRUD<T> {
+public abstract class CRUD<M> {
 	
 	@Inject
-	private Logger log;
+	protected Logger log;
 
 	@Inject
 	protected EntityManager em;
@@ -20,37 +20,36 @@ public class CRUD<T> {
 	@Inject
 	private UserTransaction tnx;
 	
-	protected Class<T> clz;
+	protected Class<M> clz;
 	protected String clzName;
 	
 	public CRUD() {
 		super();
+		
+		clz = getClazz();
+		clzName = clz.getSimpleName(); 
 	}
 	
-	public CRUD(Class<T> clz) {
-		this.clz = clz;
-		this.clzName = this.clz.getSimpleName(); 
-		//log = Logger.getLogger("CRUD::" + this.clzName);
-	}
+	protected abstract Class<M> getClazz();
 	
 	protected Long countEntities(){
 		log.severe("call to count " + this.clzName);
 		return Long.valueOf(fetchEntities().size());
 	}
     
-	protected T fetchEntity(Long id){
+	protected M fetchEntity(Long id){
     	log.severe("call to fetch " + this.clzName + " @ " + id);
-    	T t = em.find(this.clz, id);
+    	M t = em.find(this.clz, id);
     	log.severe(this.clzName + " @ " + id + (t == null ? " was not found" : " was found"));
     	return t;
     }
     
-	protected List<T> fetchEntities(){
+	protected List<M> fetchEntities(){
     	log.severe("call to fetch all " + this.clzName);
     	return em.createQuery("select i from " + this.clzName + " i order by i.id", this.clz).getResultList();
     }
 	
-	protected T createEntity(T entity){
+	protected M createEntity(M entity){
 		log.severe("call to create " + this.clzName);
 		try {
 			tnx.begin();
@@ -63,7 +62,7 @@ public class CRUD<T> {
 		return entity;
 	}
 	
-	protected T updateEntity(T entity){
+	protected M updateEntity(M entity){
 		log.severe("call to update " + this.clzName);
 		try {
 			tnx.begin();
@@ -89,7 +88,7 @@ public class CRUD<T> {
 		boolean status = false;
 		try {
 			tnx.begin();
-			T entity = em.find(this.clz, id);
+			M entity = em.find(this.clz, id);
 			if(entity != null){
 				log.severe("found " + this.clzName + ", deleting it ... ");
 				em.remove(entity);
@@ -105,7 +104,7 @@ public class CRUD<T> {
 		return status;
 	}
 	
-	protected void refreshEntity(T entity){
+	protected void refreshEntity(M entity){
 		log.severe("call to refresh " + this.clzName);
 		if(entity != null){
 			try {

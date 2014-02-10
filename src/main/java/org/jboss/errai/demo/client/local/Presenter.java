@@ -1,18 +1,11 @@
 package org.jboss.errai.demo.client.local;
 
-
 import org.jboss.errai.demo.client.shared.DomainEntity;
 import org.jboss.errai.ui.client.widget.HasModel;
 
 import com.google.gwt.user.client.ui.IsWidget;
 
 public interface Presenter<M extends DomainEntity, W extends HasModel<M> & IsWidget, D, S> {
-
-	BoundDisplay<M> getBoundDisplay();
-	
-	void fetchData(boolean forceFetch);
-	
-	ListWidgetDisplay<M, W> getListWidgetDisplay();
 	
 	void onViewShown(S evt);
 	
@@ -22,5 +15,13 @@ public interface Presenter<M extends DomainEntity, W extends HasModel<M> & IsWid
 	
 	void onDelete(D evt);
 	
-	void onModelSelected(M selection);
+	void onSelect(M selection);
+
+	void fetchData(boolean forceFetch);
+		
+	BoundDisplay<M> getBoundDisplay();
+	
+	FormEntryDisplay getFormEntryDisplay();
+	
+	ListWidgetDisplay<M, W> getListWidgetDisplay();
 }

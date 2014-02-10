@@ -19,7 +19,7 @@
     <errai.dev.context>${project.artifactId}</errai.dev.context>
     <as.version>7.1.1.Final</as.version>
     <!-- Add the absolute path for $JBOSS_HOME below to manage another instance -->
-    <errai.jboss.home>/home/chalu/sdks-tools/jboss-as-7.1.1.Final</errai.jboss.home>
+    <errai.jboss.home>/home/chalu/sdks-tools/jboss-eap-6.1</errai.jboss.home>
   </properties>
 
   <dependencyManagement>

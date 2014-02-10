@@ -15,16 +15,13 @@ import org.jboss.errai.demo.client.shared.Post;
 import org.jboss.errai.demo.client.shared.RESTService;
 
 @Dependent
-public class BaseEndpoint<M, D extends DeleteEvent> extends CRUD<M> implements RESTService<M> {
+public abstract class BaseEndpoint<M, D extends DeleteEvent> extends CRUD<M> implements RESTService<M> {
 	
-	@Inject
-	protected Logger log;
-	
-	@Inject @New
-	protected Event<M> genericEntityAdded;		// fails to get to the client when fired
+//	@Inject
+//	protected Logger log;
 	
 	@Inject @New
-	protected Event<Post> entityAdded;			// gets to the client when fired;
+	protected Event<M> entityAdded;
 	
 	@Inject @Edit
 	protected Event<M> entityEdited;
@@ -36,13 +33,7 @@ public class BaseEndpoint<M, D extends DeleteEvent> extends CRUD<M> implements R
 		super();
 	}
 	
-	public BaseEndpoint(Class<M> clz) {
-		super(clz);
-	}
-	
-	protected D getDeleteEventObject(){
-		return null;
-	}
+	protected abstract D getDeleteEventObject();
 
 	@Override
 	public M fetch(Long id) {
@@ -66,9 +57,8 @@ public class BaseEndpoint<M, D extends DeleteEvent> extends CRUD<M> implements R
 	public M add(M entity) {
 		log.severe("lets add " + clzName + " - " + entity);
 		entity = createEntity(entity);
-		entityAdded.fire( (Post) entity); // gets to the client	
 		
-		genericEntityAdded.fire(entity); // fails to get to the client							
+		entityAdded.fire(entity);						
 		log.severe("added " + entity + " and fired CDI event, returning call");
 		return entity;
 	}
